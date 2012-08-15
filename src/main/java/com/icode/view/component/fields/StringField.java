@@ -1,6 +1,7 @@
 /* Copyright 2008-2009 Robert Bajzat. All rights reserved. Use is subject to license terms. */
 package com.icode.view.component.fields;
 
+import java.awt.Dimension;
 import java.util.regex.Pattern;
 
 /**

@@ -124,7 +124,7 @@ public class Cell {
      * @return the cell itself
      */
     public Cell setDateFormat() {
-        return setFormat(DateFormat.getDateInstance(DateFormat.SHORT));
+        return setFormat(DateFormat.getDateInstance(DateFormat.LONG));
     }
 
     /**
