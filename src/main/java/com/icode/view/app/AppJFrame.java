@@ -125,18 +125,23 @@ public abstract class AppJFrame extends JFrame implements
 	static {
 		System.setProperty("apple.laf.useScreenMenuBar", "true");
 		System.setProperty("awt.useSystemAAFontSettings", "on");
-		int fs = screenDimensions.height >= 800 ? 13
-				: screenDimensions.height >= 700 ? 12
-						: screenDimensions.height >= 600 ? 11 : 10;
+		int fs = 12;
+		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception exc) {
 		}
+		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception exc) {}
 
 		Font font = UIManager.getFont("Label.font");
 		String os = System.getProperty("os.name");
 		if ("Mac OS X".equals(os)) {
 			font = new Font("Lucida Grande", Font.PLAIN, fs);
+		}else if ("Windows Vista".equals(os)){
+			font = new Font("Segoe UI", Font.PLAIN, fs);
 		} else if ("Windows XP".equals(os)) {
 			font = new Font("Tahoma", Font.PLAIN, fs);
 		} else if ("Windows 7".equals(os) || "Windows Vista".equals(os)) {

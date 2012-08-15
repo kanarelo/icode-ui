@@ -39,6 +39,11 @@ public class PasswordField extends javax.swing.JPasswordField implements ValueEd
         this();
         this.setText(text);
     }
+    
+    public PasswordField(int columns) {
+        this();
+        this.setColumns(columns);
+    }
 
     /**
      * Creates a field
@@ -119,22 +124,6 @@ public class PasswordField extends javax.swing.JPasswordField implements ValueEd
      * @see #getAutoCompleteValue(Set, String)
      */
     protected String getAutoCompleteValue(String text) {
-        return null;
-    }
-
-    /**
-     * Helper method to find the first possible completion text
-     * @param values list of possible values
-     * @param text the current content of the field
-     * @return the text to append and select
-     * @see #getAutoCompleteValue(String)
-     */
-    protected final String getAutoCompleteValue(Set<String> values, String text) {
-        for (String complete : values) {
-            if (complete.regionMatches(true, 0, text, 0, text.length())) {
-                return complete.substring(text.length());
-            }
-        }
         return null;
     }
 
@@ -329,43 +318,4 @@ public class PasswordField extends javax.swing.JPasswordField implements ValueEd
     public Dimension getMaximumSize() {
         return getPreferredSize();
     }
-    /*public void setRolloverBorder() {
-    setBorder(new RolloverBorder(this));
-    }
-
-    private static class RolloverBorder
-    implements Border, FocusListener, MouseListener {
-
-    private JTextField textField;
-    private Border border;
-    private boolean focused, inside, pressed;
-
-    private RolloverBorder(JTextField textField) {
-    this.textField = textField;
-    border = textField.getBorder();
-    textField.addFocusListener(this);
-    textField.addMouseListener(this);
-    }
-
-    public Insets getBorderInsets(Component comp) {
-    return border.getBorderInsets(comp);
-    }
-
-    public boolean isBorderOpaque() {
-    return border.isBorderOpaque();
-    }
-
-    public void paintBorder(Component comp,
-    Graphics g, int x, int y, int width, int height) {
-    if (focused || inside || pressed) border.paintBorder(comp, g, x, y, width, height);
-    }
-
-    public void focusGained(FocusEvent e) { focused = true; textField.repaint(); }
-    public void focusLost(FocusEvent e) { focused = false; textField.repaint(); }
-    public void mouseClicked(MouseEvent e) {}
-    public void mouseEntered(MouseEvent e) { inside = true; textField.repaint(); }
-    public void mouseExited(MouseEvent e) { inside = false; textField.repaint(); }
-    public void mousePressed(MouseEvent e) { pressed = true; textField.repaint(); }
-    public void mouseReleased(MouseEvent e) { pressed = false; textField.repaint(); }
-    }*/
 }

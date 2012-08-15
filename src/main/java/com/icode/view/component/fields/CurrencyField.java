@@ -125,12 +125,12 @@ public class CurrencyField extends AbstractField {
 		super.paintBorder(g);
 		Insets is = getInsets();
 		FontMetrics fm = g.getFontMetrics();
-		String symbol = "Kes.";//format.getCurrency().getSymbol();
+		String symbol = "Sh";//format.getCurrency().getSymbol();
 		g.setColor(Color.darkGray);
 		g.drawString(
 				symbol,
-				leftSymbol ? (is.left - fm.stringWidth(symbol) - 3)
-						: (getWidth() - is.right + 3),
+				leftSymbol ? (is.left - fm.stringWidth(symbol))
+						: (getWidth() - is.right),
 				is.top
 						+ (getHeight() - is.top - is.bottom + fm.getAscent() - fm
 								.getDescent()) / 2);
@@ -139,3 +139,4 @@ public class CurrencyField extends AbstractField {
 	private static final Logger LOG = Logger.getLogger(CurrencyField.class
 			.getName());
 }
+

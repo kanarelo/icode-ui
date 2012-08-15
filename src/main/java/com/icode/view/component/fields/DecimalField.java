@@ -1,16 +1,14 @@
 /* Copyright 2008-2009 Robert Bajzat. All rights reserved. Use is subject to license terms. */
 package com.icode.view.component.fields;
 
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.ParsePosition;
+import java.text.DecimalFormat;
 
 /**
  * Field to edit numbers
  */
-public class IntegerField extends NumberField {
+public class DecimalField extends NumberField {
     {
-    	format = NumberFormat.getIntegerInstance();
+    	format = DecimalFormat.getNumberInstance();
         format.setGroupingUsed(false);
     }
 
@@ -18,7 +16,7 @@ public class IntegerField extends NumberField {
      *
      * @param completeMatches
      */
-    public IntegerField(Object[] completeMatches) {
+    public DecimalField(Object[] completeMatches) {
         super(completeMatches);
     }
 
@@ -27,15 +25,15 @@ public class IntegerField extends NumberField {
      * @param completeMatches
      * @param useWindow
      */
-    public IntegerField(Object[] completeMatches, boolean useWindow) {
+    public DecimalField(Object[] completeMatches, boolean useWindow) {
         super(completeMatches, useWindow);
     }
 
-    public IntegerField(){
+    public DecimalField(){
         this(16);
     }
 
-    public IntegerField(int columns) {
+    public DecimalField(int columns) {
         setColumns(columns);
     }
 }

@@ -227,13 +227,14 @@ public class Cell {
 
     void render(Graphics2D g, Object item, boolean selected) {
         g.setFont(font);
+        
         if (!selected) {
             g.setColor(color);
         }
+        
         if (format == progress) {
             int value = Math.max(0, Math.min(((Number) getValue(item)).intValue(), 100));
-            int w = Math.min(width, 80), length = value * w / 100,
-                    h = 7, py = y + (height - h) / 2;
+            int w = Math.min(width, 80), length = value * w / 100, h = 7, py = y + (height - h) / 2;
 
             Color _color = g.getColor();
             if (length < w) {

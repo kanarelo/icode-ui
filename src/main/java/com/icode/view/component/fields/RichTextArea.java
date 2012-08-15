@@ -14,11 +14,11 @@ import com.icode.view.binding.ValueEditor;
 public class RichTextArea extends JScrollPane
         implements ValueEditor<Object>, DocumentListener {
 
-    private JTextArea textArea = new JTextArea(4, 12);
+    private JTextArea textArea;
     private boolean required;
 
-    public RichTextArea() {
-        setViewportView(this.textArea);
+    public RichTextArea(int rows, int columns) {
+        setViewportView(this.textArea = new JTextArea(rows, columns));
         this.textArea.getDocument().addDocumentListener(this);
     }
 

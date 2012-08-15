@@ -147,6 +147,7 @@ public abstract class MenuAppFrame extends AppJFrame {
 		};
 
 		titlePanel.setOpaque(false);
+		titlePanel.setVisible(false);
 		menuBar.setOpaque(false);
 
 		titlePanel.setBorder(null);
