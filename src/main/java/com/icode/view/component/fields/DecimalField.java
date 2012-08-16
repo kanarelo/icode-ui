@@ -1,14 +1,16 @@
 /* Copyright 2008-2009 Robert Bajzat. All rights reserved. Use is subject to license terms. */
 package com.icode.view.component.fields;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 
 /**
  * Field to edit numbers
  */
 public class DecimalField extends NumberField {
     {
-    	format = DecimalFormat.getNumberInstance();
+    	format = new DecimalFormat("#0.00");
         format.setGroupingUsed(false);
     }
 
@@ -36,4 +38,10 @@ public class DecimalField extends NumberField {
     public DecimalField(int columns) {
         setColumns(columns);
     }
+    
+    @Override
+	public Number getContent() {
+    	Number content = super.getContent();
+    	return content != null ? new BigDecimal(content.toString()) : 0.0;
+	}
 }

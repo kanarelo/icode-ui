@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Insets;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -64,10 +65,10 @@ public class CurrencyField extends AbstractField {
 	 *             for invalid content
 	 */
 	@Override
-	public Float getContent() {
+	public BigDecimal getContent() {
 		try {
 			String text = getText();
-			return (text.length() > 0) ? format.parse(text).floatValue() : null;
+			return (text.length() > 0) ? new BigDecimal(format.parse(text).toString()) : null;
 		} catch (ParseException exc) {
 			throw new RuntimeException(exc);
 		}

@@ -7,19 +7,19 @@ import java.text.ParsePosition;
 public abstract class NumberField extends AbstractField {
 
 	protected NumberFormat format;
-	protected Integer min;
-	protected Integer max;
+	protected Number min;
+	protected Number max;
 
 	public NumberField(Object[] completeMatches, boolean useWindow) {
 		super(completeMatches, useWindow);
 	}
 	
-    public NumberField(Integer min, Integer max) {
+    public NumberField(Number min, Number max) {
     	this.min = min;
         this.max = max;
     }
     
-    public NumberField(Integer columns, Integer min, Integer max) {
+    public NumberField(int columns, Number min, Number max) {
     	this(min, max);
         setColumns(columns);
     }
@@ -44,7 +44,7 @@ public abstract class NumberField extends AbstractField {
 	 * Updates the number value
 	 * @param value the new value
 	 */
-	public void setContent(Integer value) {
+	public void setContent(Number value) {
 	    setText((value != null) ? format.format(value) : "");
 	}
 
@@ -54,10 +54,10 @@ public abstract class NumberField extends AbstractField {
 	 * @throws RuntimeException for invalid content
 	 */
 	@Override
-	public Integer getContent() {
+	public Number getContent() {
 	    try {
 	        String text = getText();
-	        return (text.length() > 0) ? format.parse(text).intValue() : null;
+	        return (text.length() > 0) ? format.parse(text) : null;
 	    } catch (ParseException exc) {
 	        throw new RuntimeException(exc);
 	    }
@@ -69,18 +69,11 @@ public abstract class NumberField extends AbstractField {
     @Override
     protected boolean isValid(String text) {
         ParsePosition position = new ParsePosition(0);
-        Number integer = format.parse(text, position);
-        if (integer == null) {
+        Number value = format.parse(text, position);
+        if (value == null) {
             return false;
         }
         if (position.getIndex() != text.length()) {
-            return false;
-        }
-        int value = integer.intValue();
-        if ((min != null) && (value < min.intValue())) {
-            return false;
-        }
-        if ((max != null) && (value > max.intValue())) {
             return false;
         }
         return true;
@@ -92,10 +85,9 @@ public abstract class NumberField extends AbstractField {
     @Override
     protected String getFormattedText(String text) {
         try {
-            return format.format(format.parse(text).longValue());
+            return format.format(format.parse(text));
         } catch (ParseException exc) {
             return text;
         }
     }
-
 }
