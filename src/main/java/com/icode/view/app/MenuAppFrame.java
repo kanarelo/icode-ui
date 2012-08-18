@@ -158,12 +158,9 @@ public abstract class MenuAppFrame extends AppJFrame {
 
 		panel.add(titlePanel, BorderLayout.CENTER);
 
-		wrapper = new WrapperPanel(new BorderLayout());
-
-		// wrapper.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+		menuWrapper = new WrapperPanel(new BorderLayout());
 
 		blueRibbon = new JPanel(new BorderLayout()) {
-
 			@Override
 			protected void paintComponent(Graphics g) {
 				Graphics2D g2 = (Graphics2D) g;
@@ -188,9 +185,6 @@ public abstract class MenuAppFrame extends AppJFrame {
 		};
 		blueRibbon.setPreferredSize(new Dimension(ImageObserver.WIDTH, 2));
 		blueRibbon.add(Box.createVerticalStrut(1));
-		wrapper.add(menuBar, BorderLayout.NORTH);
-		wrapper.add(titlePanel, BorderLayout.CENTER);
-		wrapper.add(blueRibbon, BorderLayout.SOUTH);
 
 		grayRibbon = new JPanel(new BorderLayout()) {
 			@Override
@@ -217,12 +211,6 @@ public abstract class MenuAppFrame extends AppJFrame {
 		dialogStrip.addGlue(java.awt.Toolkit.getDefaultToolkit()
 				.getScreenSize().width - 480);
 		dialogStrip.addPlusButton("Close this Message");
-
-		JPanel nPanel = new JPanel(new BorderLayout());
-		nPanel.add(wrapper, BorderLayout.NORTH);
-		// nPanel.add(dialogStrip, BorderLayout.CENTER);
-		nPanel.add(grayRibbon, BorderLayout.SOUTH);
-		this.getContentPane().add(nPanel, BorderLayout.NORTH);
 
 		toolFooter.setBorder(new LineBorder(new Color(11184810), 1, 0, 0, 0));
 		toolFooter.add(Box.createHorizontalStrut(8));
@@ -433,6 +421,17 @@ public abstract class MenuAppFrame extends AppJFrame {
 		menuBar.addButton("/icons/16/cog_16x16.png", "Settings");
 		menuBar.addButton("/icons/16/Help.png", "Help");
 
+		setupHeaderLayouts();
+	}
+
+	protected void setupHeaderLayouts() {
+		menuWrapper.add(menuBar, BorderLayout.NORTH);
+		menuWrapper.add(titlePanel, BorderLayout.CENTER);
+		menuWrapper.add(blueRibbon, BorderLayout.SOUTH);
+		
+		JPanel nPanel = new JPanel(new BorderLayout());
+		nPanel.add(menuWrapper, BorderLayout.NORTH);
+		this.getContentPane().add(nPanel, BorderLayout.NORTH);
 	}
 
 	private TitlePanel titlePanel;
@@ -441,7 +440,7 @@ public abstract class MenuAppFrame extends AppJFrame {
 	private static ToolFooter toolFooter = new ToolFooter();
 	private ButtonGroup menubarButtonGroup;
 	private JPanel panel;
-	private JPanel wrapper;
+	private JPanel menuWrapper;
 	private JPanel blueRibbon;
 	private JPanel grayRibbon;
 	private JMenu printMenu;

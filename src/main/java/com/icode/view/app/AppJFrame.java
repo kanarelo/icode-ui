@@ -2,7 +2,6 @@
 package com.icode.view.app;
 
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
@@ -15,7 +14,6 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
 import com.icode.validation.ValidationEngine;
@@ -82,8 +80,7 @@ public abstract class AppJFrame extends JFrame implements
 	}
 
 	protected void showFrame() {
-		showFrame(800, 600);
-		setExtendedState(Frame.MAXIMIZED_BOTH);
+		showFrame(1050, 600);
 	}
 
 	private class Listener implements WindowListener {
@@ -122,50 +119,4 @@ public abstract class AppJFrame extends JFrame implements
 	private static final Dimension screenDimensions = java.awt.Toolkit
 			.getDefaultToolkit().getScreenSize();
 
-	static {
-		System.setProperty("apple.laf.useScreenMenuBar", "true");
-		System.setProperty("awt.useSystemAAFontSettings", "on");
-		int fs = 12;
-		
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception exc) {
-		}
-		
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception exc) {}
-
-		Font font = UIManager.getFont("Label.font");
-		String os = System.getProperty("os.name");
-		if ("Mac OS X".equals(os)) {
-			font = new Font("Lucida Grande", Font.PLAIN, fs);
-		}else if ("Windows Vista".equals(os)){
-			font = new Font("Segoe UI", Font.PLAIN, fs);
-		} else if ("Windows XP".equals(os)) {
-			font = new Font("Tahoma", Font.PLAIN, fs);
-		} else if ("Windows 7".equals(os) || "Windows Vista".equals(os)) {
-			font = new Font("Maiandra GD", Font.PLAIN, fs);
-		} else if ("Gnome".equals(os)) {
-			font = new Font("DejaVu", Font.PLAIN, fs);
-		}
-
-		String[] keys = { "Button", "CheckBox", "CheckBoxMenuItem",
-				"ColorChooser", "ComboBox", "EditorPane", "FormattedTextField",
-				"Label", "List", "Menu", "MenuBar", "MenuItem", "OptionPane",
-				"Panel", "PasswordField", "PopupMenu", "ProgressBar",
-				"RadioButton", "RadioButtonMenuItem", "ScrollPane", "Spinner",
-				"TabbedPane", "Table", "TableHeader", "TextArea", "TextField",
-				"TextPane", "TitledBorder", "ToggleButton", "ToolBar",
-				"ToolTip", "Tree", "Viewport" };
-		for (String key : keys) {
-			UIManager.put(key + ".font", font);
-		}
-
-		UIManager.put("Button.font", font.deriveFont(15));
-		UIManager.put("Label.boldfont", new Font(font.getName(), Font.BOLD,
-				font.getSize()));
-		UIManager.put("Label.smallfont", new Font(font.getName(), Font.PLAIN,
-				font.getSize() - 2));
-	}
 }

@@ -7,6 +7,7 @@ import java.awt.FontMetrics;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.RadialGradientPaint;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
@@ -451,6 +452,8 @@ public class TitlePanel extends JToolBar {
         @Override
 		protected void paint(Graphics2D g, boolean inside, boolean pressed, boolean focused) {
             if (isEnabled()) {
+            	((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                        RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
                 if (pressed || inside) {
                     g.setColor((pressed && inside) ? pressedCol : focusedCol);
                     g.fillRoundRect(0, 0, getWidth(), getHeight(), 0, 0);

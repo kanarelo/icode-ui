@@ -5,7 +5,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Insets;
+import java.awt.RenderingHints;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Set;
@@ -322,6 +324,8 @@ public abstract class AbstractField extends AutoCompleteTextField implements
 		if ((watermark != null) && (getText().length() == 0)) {
 			g.setColor(Color.lightGray);
 			Insets is = getInsets();
+			((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 			g.drawString(watermark, is.left, is.top
 					+ g.getFontMetrics().getAscent());
 		}

@@ -5,7 +5,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Insets;
+import java.awt.RenderingHints;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Set;
@@ -269,6 +271,8 @@ public class PasswordField extends javax.swing.JPasswordField implements ValueEd
         if ((watermark != null) && (this.getPassword().length == 0)) {
             g.setColor(Color.lightGray);
             Insets is = getInsets();
+            ((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
             g.drawString(watermark, is.left, is.top + g.getFontMetrics().getAscent());
         }
 
@@ -306,6 +310,17 @@ public class PasswordField extends javax.swing.JPasswordField implements ValueEd
                 fm.stringWidth(text) + is.left + is.right + 2,
                 fm.getAscent() + fm.getDescent() + is.top + is.bottom);
     }
+    
+    @Override
+	public Insets getInsets() {
+		Insets insets = super.getInsets();
+		insets.top += 3.5;
+		insets.bottom += 3.5;
+		
+		insets.left += 1;
+		insets.right += 1;
+		return insets;
+	}
 
     /** Overwritten to return preferred size for box layout */
     @Override

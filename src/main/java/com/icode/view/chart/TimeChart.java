@@ -316,8 +316,8 @@ public abstract class TimeChart extends JPanel implements MouseMotionListener {
 
     @Override
     public String getToolTipText(MouseEvent e) {
-        if (!area.contains(e.getX(), e.getY())) {
-            return null;
+        if (area == null || !area.contains(e.getX(), e.getY())) {
+            return "";
         }
         long time = minTime + (long) ((e.getX() - area.x) / scaleX);
         float value = maxValue - (float) ((e.getY() - area.y) / scaleY);
@@ -331,7 +331,7 @@ public abstract class TimeChart extends JPanel implements MouseMotionListener {
      * @return
      */
     protected String getToolTipText(long time, float value) {
-        return "<html>(<b>" + time + "</b>,<b>" + value + "</b>)";
+        return "<html>(" + time + "," + value + ")";
     }
 
     private class TimeLine {
