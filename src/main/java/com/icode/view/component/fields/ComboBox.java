@@ -86,7 +86,6 @@ public class ComboBox extends JComboBox implements ValueEditor<Object> {
 	 */
 	public void setRequired(boolean required) {
 		this.required = required;
-		// ...
 	}
 
 	/**
@@ -270,19 +269,6 @@ public class ComboBox extends JComboBox implements ValueEditor<Object> {
 				}
 			}
 		}
-	}
-
-	/**
-	 * Overwritten to return different size for hover styled component
-	 */
-	@Override
-	public Dimension getPreferredSize() {
-		FontMetrics fm = getFontMetrics(small);
-		int w = 0, h = fm.getAscent() + fm.getDescent() + 4;
-		for (int i = 0, n = getItemCount(); i < n; i++) {
-			w = Math.max(fm.stringWidth(((Item) getItemAt(i)).decription), w);
-		}
-		return new Dimension(w + 10 + (h / 2) * 2, (int) (h * 1.3));
 	}
 
 	private static final Logger LOG = Logger

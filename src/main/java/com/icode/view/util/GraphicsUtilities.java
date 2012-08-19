@@ -643,7 +643,7 @@ public class GraphicsUtilities {
      * @return
      */
     public static Image BufferedToImage(BufferedImage originalImage) {
-        return Toolkit.getDefaultToolkit().createImage(BufferedToBytePng(originalImage));
+        return Toolkit.getDefaultToolkit().createImage(bufferedToBytePng(originalImage));
     }
 
     /**
@@ -651,7 +651,7 @@ public class GraphicsUtilities {
      * @param originalImage
      * @return
      */
-    public static byte[] BufferedToBytePng(BufferedImage originalImage) {
+    public static byte[] bufferedToBytePng(BufferedImage originalImage) {
         byte[] imageInByte = null;
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();

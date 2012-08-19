@@ -3,15 +3,14 @@ package com.icode.view.component.fields;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 
 /**
  * Field to edit numbers
  */
 public class DecimalField extends NumberField {
     {
-    	format = new DecimalFormat("#0.00");
-        format.setGroupingUsed(false);
+    	format = new DecimalFormat("#000.00");
+        format.setGroupingUsed(true);
     }
 
     /**

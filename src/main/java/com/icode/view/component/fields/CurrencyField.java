@@ -4,7 +4,9 @@ package com.icode.view.component.fields;
 import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Insets;
+import java.awt.RenderingHints;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -108,8 +110,8 @@ public class CurrencyField extends AbstractField {
 	@Override
 	public Insets getInsets() {
 		Insets is = super.getInsets();
-		String symbol = format.getCurrency().getSymbol();
-		int w = getFontMetrics(getFont()).stringWidth(symbol) + 3;
+		String symbol = "Kes. ";//format.getCurrency().getSymbol();
+		int w = getFontMetrics(getFont()).stringWidth(symbol) + 1;
 		if (leftSymbol) {
 			is.left += w;
 		} else {
@@ -126,8 +128,10 @@ public class CurrencyField extends AbstractField {
 		super.paintBorder(g);
 		Insets is = getInsets();
 		FontMetrics fm = g.getFontMetrics();
-		String symbol = "Sh";//format.getCurrency().getSymbol();
+		String symbol = "Kes. ";//format.getCurrency().getSymbol();
 		g.setColor(Color.darkGray);
+		((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		g.drawString(
 				symbol,
 				leftSymbol ? (is.left - fm.stringWidth(symbol))

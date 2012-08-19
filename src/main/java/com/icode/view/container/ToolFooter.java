@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.JComponent;
@@ -72,6 +73,25 @@ public class ToolFooter extends JPanel {
 
     public JComponent addMinimiseButton(String tootTip, ActionListener listener) {
         return addButton(new MinimiseIcon(), tootTip, listener);
+    }
+    
+    /**
+     * Adda a strut with the given width
+     * @param width width of the strut
+     */
+    public void addStrut(int width) {
+        add(Box.createHorizontalStrut(width));
+    }
+
+    /**
+     * Adds a strut with the given width and a glue
+     * @param width width of the strut, can be zero
+     */
+    public void addGlue(int width) {
+        if (width > 0) {
+            add(Box.createHorizontalStrut(width));
+        }
+        add(Box.createHorizontalGlue());
     }
 
     /**

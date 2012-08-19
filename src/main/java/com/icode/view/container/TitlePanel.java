@@ -26,6 +26,7 @@ import com.icode.resources.ResourceUtils;
 import com.icode.view.app.TipManager;
 import com.icode.view.border.LineBorder;
 import com.icode.view.component.PressButton;
+import com.icode.view.container.MenuBar.ToolButton;
 
 /**
  * Wrapper component for tool-bar
@@ -121,6 +122,18 @@ public class TitlePanel extends JToolBar {
         add(button);
         return button;
     }
+    
+    public PressButton addButton(Icon icon, String tip) {
+        return addButton(icon, tip, null);
+    }
+
+    public PressButton addButton(Icon icon, String tip,
+			JPopupMenu popup) {
+		PressButton button = new ToolButton(icon, tip);
+		addStrut(3);
+		add(button);
+		return button;
+	}
 
     public AppButton addAppButton(String path, String tip, JPopupMenu popup) {
         AppButton button = new AppButton(path, tip, popup);
@@ -184,6 +197,11 @@ public class TitlePanel extends JToolBar {
             TipManager.register(this);
             this.popup = popup;
         }
+        
+        public ToolButton(Icon icon, String tip) {
+			this.icon = icon;
+			setToolTipText(tip);
+		}
 
         public ToolButton(Class<?> clazz, String path, String tip, JPopupMenu popup) {
             this(path, tip, popup);

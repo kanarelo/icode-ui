@@ -357,9 +357,9 @@ public abstract class MenuAppFrame extends AppJFrame {
 		p.setIcon(new Icon() {
 			public void paintIcon(Component c, Graphics g, int x, int y) {
 				Graphics2D g2 = (Graphics2D) g;
-				g2.rotate(Math.toRadians(135), x, y);
-				g.fillRect((x - 2), (y - 10), 2, 6);
-				g.fillRect((x - 2), (y - 6), 6, 2);
+				g2.rotate(Math.toRadians(-45), x, y);
+				g.fillRect((x - 2), (y + 3), 2, 6);
+				g.fillRect((x - 2), (y + 7), 6, 2);
 			}
 
 			public int getIconWidth() {

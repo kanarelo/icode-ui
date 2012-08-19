@@ -22,209 +22,243 @@ import javax.swing.event.ListSelectionListener;
 
 /**
  * Table component supporting multiline content, binding, and editing
- * @param <E> the type of the objects added as rows
+ * 
+ * @param <E>
+ *            the type of the objects added as rows
  */
 public class Table<E> extends JList {
 
-    private TableRenderer renderer;
+	private TableRenderer renderer;
 
-    /**
-     * Creates a table
-     */
-    public Table() {
-        setModel(new DefaultListModel());
-        Listeners listener = new Listeners();
-        getSelectionModel().addListSelectionListener(listener);
-        addMouseListener(listener);
-        addMouseMotionListener(listener);
-        addAncestorListener(listener);
-    }
+	/**
+	 * Creates a table
+	 */
+	public Table() {
+		setModel(new DefaultListModel());
+		Listeners listener = new Listeners();
+		getSelectionModel().addListSelectionListener(listener);
+		addMouseListener(listener);
+		addMouseMotionListener(listener);
+		addAncestorListener(listener);
+	}
 
-    public void setCells(Class<E> clazz, Cell... cells) {
-        setCellRenderer(renderer = getRenderer(clazz, cells));
-    }
+	public void setCells(Class<E> clazz, Cell... cells) {
+		setCellRenderer(renderer = getRenderer(clazz, cells));
+	}
 
-    protected TableRenderer getRenderer(Class<E> clazz, Cell... cells) {
+	protected TableRenderer getRenderer(Class<E> clazz, Cell... cells) {
 		return new TableRenderer(this, clazz, cells);
 	}
 
-    /**
-     * Add the given row to the table
-     * @param item an object to add
-     */
-    public void addItems(List<E> items) {
-    	for (E item:items){
-    		addItem(item);
-    	}
-    }
-    
 	/**
-     * Add the given row to the table
-     * @param item an object to add
-     */
-    public void addItem(E item) {
-        ((DefaultListModel) getModel()).addElement(item);
-    }
+	 * Add the given row to the table
+	 * 
+	 * @param item
+	 *            an object to add
+	 */
+	public void addItems(List<E> items) {
+		for (E item : items) {
+			addItem(item);
+		}
+	}
 
-    /**
-     * Removes the given row
-     * @param value the value object
-     * @return true if the value was a row of this table
-     */
-    public boolean remove(E value) {
-        return ((DefaultListModel) getModel()).removeElement(value);
-    }
+	/**
+	 * Add the given row to the table
+	 * 
+	 * @param item
+	 *            an object to add
+	 */
+	public void addItem(E item) {
+		((DefaultListModel) getModel()).addElement(item);
+	}
+		
+	/**
+	 * Remove all items
+	 * 
+	 * @param item
+	 *            an object to add
+	 */
+	public void removeAllItems() {
+		((DefaultListModel) getModel()).removeAllElements();
+	}
 
-    /**
-     * Selects the last row
-     */
-    public void selectLast() {
-        int i = getModel().getSize() - 1;
-        setSelectedIndex(i);
-        scrollRectToVisible(getCellBounds(i, i));
-    }
+	/**
+	 * Removes the given row
+	 * 
+	 * @param value
+	 *            the value object
+	 * @return true if the value was a row of this table
+	 */
+	public boolean removeItem(E value) {
+		return ((DefaultListModel) getModel()).removeElement(value);
+	}
 
-    /**
-     * Returns the selected rows
-     * @return the list of selected rows
-     */
-    @SuppressWarnings("unchecked")
-    public List<E> getSelectedItems() {
-        List<E> selecteds = new ArrayList<E>();
-        for (Object item : getSelectedValues()) {
-            selecteds.add((E) item);
-        }
-        return selecteds;
-    }
+	/**
+	 * Selects the last row
+	 */
+	public void selectLast() {
+		int i = getModel().getSize() - 1;
+		setSelectedIndex(i);
+		scrollRectToVisible(getCellBounds(i, i));
+	}
 
-    /**
-     * Listener to listen to table selection changes and double clicks
-     * @param <E> the type of the objects added as rows
-     */
-    public static interface Listener<E> extends EventListener {
+	/**
+	 * Returns the selected rows
+	 * 
+	 * @return the list of selected rows
+	 */
+	@SuppressWarnings("unchecked")
+	public List<E> getSelectedItems() {
+		List<E> selecteds = new ArrayList<E>();
+		for (Object item : getSelectedValues()) {
+			selecteds.add((E) item);
+		}
+		return selecteds;
+	}
 
-        /**
-         * A row's selection was changed
-         * @param e the selection event
-         */
-        public void selectionChanged(ListSelectionEvent e);
+	/**
+	 * Listener to listen to table selection changes and double clicks
+	 * 
+	 * @param <E>
+	 *            the type of the objects added as rows
+	 */
+	public static interface Listener<E> extends EventListener {
 
-        /**
-         * Double clicked on a row
-         * @param item the row's value
-         */
-        public void doubleClicked(E item);
-    }
+		/**
+		 * A row's selection was changed
+		 * 
+		 * @param e
+		 *            the selection event
+		 */
+		public void selectionChanged(ListSelectionEvent e);
 
-    /**
-     * Adds a new listener to the listener list
-     * @param listener a listener to listen to table selection changes and double clicks
-     */
-    public void addListListener(Listener<E> listener) {
-        listenerList.add(Listener.class, listener);
-    }
+		/**
+		 * Double clicked on a row
+		 * 
+		 * @param item
+		 *            the row's value
+		 */
+		public void doubleClicked(E item);
+	}
 
-    /**
-     * Removes the given listener
-     * @param listener an already added listener to be removed
-     */
-    public void removeListListener(Listener<E> listener) {
-        listenerList.remove(Listener.class, listener);
-    }
+	/**
+	 * Adds a new listener to the listener list
+	 * 
+	 * @param listener
+	 *            a listener to listen to table selection changes and double
+	 *            clicks
+	 */
+	public void addListListener(Listener<E> listener) {
+		listenerList.add(Listener.class, listener);
+	}
 
-    private class Listeners implements ListSelectionListener,
-            MouseListener, MouseMotionListener, AncestorListener {
+	/**
+	 * Removes the given listener
+	 * 
+	 * @param listener
+	 *            an already added listener to be removed
+	 */
+	public void removeListListener(Listener<E> listener) {
+		listenerList.remove(Listener.class, listener);
+	}
 
-        private int insideIndex = -1;
-        private Cell insideItem;
+	private class Listeners implements ListSelectionListener, MouseListener,
+			MouseMotionListener, AncestorListener {
 
-        public void valueChanged(ListSelectionEvent e) {
-            for (Listener<E> listener : listenerList.getListeners(Listener.class)) {
-                listener.selectionChanged(e);
-            }
-        }
+		private int insideIndex = -1;
+		private Cell insideItem;
 
-        @SuppressWarnings("unchecked")
-        public void mouseClicked(MouseEvent e) {
-            if (e.getClickCount() > 1) {
-                int index = locationToIndex(e.getPoint());
-                if (index != -1) {
-                    E value = (E) getModel().getElementAt(index);
-                    for (Listener<E> listener : listenerList.getListeners(Listener.class)) {
-                        listener.doubleClicked(value);
-                    }
-                }
-            }
-        }
+		public void valueChanged(ListSelectionEvent e) {
+			for (Listener<E> listener : listenerList
+					.getListeners(Listener.class)) {
+				listener.selectionChanged(e);
+			}
+		}
 
-        public void mouseEntered(MouseEvent e) {
-            moved(e);
-        }
+		@SuppressWarnings("unchecked")
+		public void mouseClicked(MouseEvent e) {
+			if (e.getClickCount() > 1) {
+				int index = locationToIndex(e.getPoint());
+				if (index != -1) {
+					E value = (E) getModel().getElementAt(index);
+					for (Listener<E> listener : listenerList
+							.getListeners(Listener.class)) {
+						listener.doubleClicked(value);
+					}
+				}
+			}
+		}
 
-        public void mouseExited(MouseEvent e) {
-        }
+		public void mouseEntered(MouseEvent e) {
+			moved(e);
+		}
 
-        public void mousePressed(MouseEvent e) {
-        }
+		public void mouseExited(MouseEvent e) {
+		}
 
-        public void mouseReleased(MouseEvent e) {
-        }
+		public void mousePressed(MouseEvent e) {
+		}
 
-        public void mouseMoved(MouseEvent e) {
-            moved(e);
-        }
+		public void mouseReleased(MouseEvent e) {
+		}
 
-        public void mouseDragged(MouseEvent e) {
-        }
+		public void mouseMoved(MouseEvent e) {
+			moved(e);
+		}
 
-        private void moved(MouseEvent e) {
-            int index = locationToIndex(e.getPoint());
-            Cell item = null;
-            if (index != -1) {
-                Rectangle bounds = getCellBounds(index, index);
-                item = renderer.getRendererItemAt(e.getX() - bounds.x, e.getY() - bounds.y);
-            }
-            if ((insideIndex != index) || (insideItem != item)) {
-                insideIndex = index;
-                insideItem = item;
-                setCursor(Cursor.getPredefinedCursor(
-                        ((insideItem != null))
-                        ? Cursor.HAND_CURSOR : Cursor.DEFAULT_CURSOR));
-            }
-        }
+		public void mouseDragged(MouseEvent e) {
+		}
 
-        public void ancestorAdded(AncestorEvent event) {
-            if (!(getParent().getParent() instanceof JScrollPane)) {
-                return;
-            }
-        }
+		private void moved(MouseEvent e) {
+			int index = locationToIndex(e.getPoint());
+			Cell item = null;
+			if (index != -1) {
+				Rectangle bounds = getCellBounds(index, index);
+				item = renderer.getRendererItemAt(e.getX() - bounds.x, e.getY()
+						- bounds.y);
+			}
+			if ((insideIndex != index) || (insideItem != item)) {
+				insideIndex = index;
+				insideItem = item;
+				setCursor(Cursor
+						.getPredefinedCursor(((insideItem != null)) ? Cursor.HAND_CURSOR
+								: Cursor.DEFAULT_CURSOR));
+			}
+		}
 
-        public void ancestorMoved(AncestorEvent event) {
-        }
+		public void ancestorAdded(AncestorEvent event) {
+			if (!(getParent().getParent() instanceof JScrollPane)) {
+				return;
+			}
+		}
 
-        public void ancestorRemoved(AncestorEvent event) {
-        }
-    }
+		public void ancestorMoved(AncestorEvent event) {
+		}
 
-    @SuppressWarnings("unchecked")
-    public void find(String text) {
-        clearSelection();
-        if (text.length() == 0) {
-            return;
-        }
-        ListModel model = getModel();
-        for (int i = 0, n = model.getSize(); i < n; i++) {
-            E item = (E) model.getElementAt(i);
-            if (matches(item, text)) {
-                setSelectedIndex(i);
-                scrollRectToVisible(getCellBounds(i, i));
-                break;
-            }
-        }
-    }
+		public void ancestorRemoved(AncestorEvent event) {
+		}
+	}
 
-    protected boolean matches(E item, String text) {
-        return false; //name.regionMatches(true, 0, text, 0, text.length());
-    }
-    private static final Logger LOG = Logger.getLogger(Table.class.getName());
+	@SuppressWarnings("unchecked")
+	public void find(String text) {
+		clearSelection();
+		if (text.length() == 0) {
+			return;
+		}
+		ListModel model = getModel();
+		for (int i = 0, n = model.getSize(); i < n; i++) {
+			E item = (E) model.getElementAt(i);
+			if (matches(item, text)) {
+				setSelectedIndex(i);
+				scrollRectToVisible(getCellBounds(i, i));
+				break;
+			}
+		}
+	}
+
+	protected boolean matches(E item, String text) {
+		return false; // name.regionMatches(true, 0, text, 0, text.length());
+	}
+
+	private static final Logger LOG = Logger.getLogger(Table.class.getName());
 }

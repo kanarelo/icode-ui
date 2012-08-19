@@ -146,10 +146,6 @@ public class DateField extends AbstractField {
         setText((value != null) ? dateFormat.format((Date) value) : "");
     }
 
-//    @Override
-//    public void setText(String text){
-//        super.setText(dateFormat.format());
-//    }
     /**
      * Returns the valid date content
      * @return the date content
@@ -159,16 +155,6 @@ public class DateField extends AbstractField {
         return parse(getText());
     }
 
-    /**
-     * Overwrites the method the calculate the size of the component
-     */
-//    private final String formattedString = dateFormat.format(new Date());
-//    @Override
-//    public Dimension getPreferredSize() {
-//        Dimension d = getSize(formattedString);
-//        d.width += 12;
-//        return d;
-//    }
     private class Listener implements FocusListener, MouseListener {
 
         private Listener() {

@@ -91,7 +91,7 @@ public class TimerRunner extends JComponent {
             Commons.repaintAncestry(thisTimerR);
         }
     }
-    private static final int size = 16;
+    private static final int size = 32;
 
     /**
      * Overwritten to paint the component
@@ -100,7 +100,7 @@ public class TimerRunner extends JComponent {
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = ResourceUtils.init(g);
         if (!running) {
-            idleIcon.paintIcon(this, g2, 0, 0);
+            idleIcon.paintIcon(this, g2, 8, 8);
             return;
         }
         
@@ -111,7 +111,7 @@ public class TimerRunner extends JComponent {
             }
         }
         busyIconIndex = (busyIconIndex + 1) % busyIcons.length;
-        busyIcons[busyIconIndex].paintIcon(this, g2, 0, 0);
+        busyIcons[busyIconIndex].paintIcon(this, g2, 8, 8);
     }
 
     /**

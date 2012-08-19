@@ -37,6 +37,7 @@ public class Cell {
     private boolean rightAligned;
     private boolean staticText;
     private static final Format progress = new DecimalFormat();
+	private Class<?> clazz;
 
     /**
      * Creates a new cell
@@ -47,7 +48,8 @@ public class Cell {
     }
 
     void init(Class<?> clazz) {
-        if (staticText || (name == null)) {
+        this.clazz = clazz;
+		if (staticText || (name == null)) {
             return;
         }
         name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
@@ -71,7 +73,7 @@ public class Cell {
         this.color = color;
         return this;
     }
-
+    
     /**
      * Sets the rendering font
      * @param font the font used to render the text
@@ -206,7 +208,7 @@ public class Cell {
             }
             _width = Math.max(_width, fm.stringWidth(format(value)));
         }
-        return new Dimension(_width, fm.getAscent() + fm.getDescent());
+        return new Dimension(_width + 10, fm.getAscent() + fm.getDescent());
     }
 
     void setBounds(int x, int y, int width, int height) {
