@@ -102,10 +102,10 @@ public class PopupDialog extends JPanel {
 	 * @param sw
 	 * @param items
 	 */
-	public PopupDialog(String title, String message) {
+	public PopupDialog(String title, String message, Object[][] items) {
 		this();
 		add(createFooter("Search", "Cancel"), BorderLayout.SOUTH);
-		add(createSearchDialogHeader(title, message), BorderLayout.NORTH);
+		add(createSearchDialogHeader(title, message, items), BorderLayout.NORTH);
 	}
 
 	public PopupDialog(String title, JComponent formContainer,
@@ -125,7 +125,8 @@ public class PopupDialog extends JPanel {
 		}
 	}
 
-	private JPanel createSearchDialogHeader(String title, String message) {
+	private JPanel createSearchDialogHeader(String title, String message,
+			Object[][] items) {
 		JPanel header = new JPanel(new BorderLayout(8, 0));
 		header.setBorder(BorderFactory.createEmptyBorder(8, 0, 8, 0));
 
@@ -157,6 +158,11 @@ public class PopupDialog extends JPanel {
 		final ComboBox cmbColumn = new ComboBox();
 		lblColumn.setLabelFor(cmbColumn);
 		cmbColumn.setRequired(true);
+
+		for (Object[] item : items) {
+			cmbColumn.add(item[0], (String) item[1], (String) item[2]);
+		}
+
 		widgets.add(cmbColumn);
 
 		texts.add(widgets, BorderLayout.SOUTH);

@@ -83,9 +83,11 @@ public class ComboBox extends JComboBox implements ValueEditor<Object> {
 	 * 
 	 * @param required
 	 *            true for non empty selection requirement
+	 * @return 
 	 */
-	public void setRequired(boolean required) {
+	public ComboBox setRequired(boolean required) {
 		this.required = required;
+		return this;
 	}
 
 	/**
@@ -177,6 +179,11 @@ public class ComboBox extends JComboBox implements ValueEditor<Object> {
 
 		public void setValue(Object value) {
 			this.value = value;
+		}
+		
+		@Override
+		public String toString() {
+			return value.toString();
 		}
 	}
 
