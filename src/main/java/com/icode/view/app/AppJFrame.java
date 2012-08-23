@@ -2,13 +2,11 @@
 package com.icode.view.app;
 
 import java.awt.Dimension;
-import java.awt.Frame;
 import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
@@ -16,7 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
-import com.icode.validation.ValidationEngine;
 import com.icode.view.iApplicationMenuControls;
 
 /**
@@ -27,15 +24,6 @@ public abstract class AppJFrame extends JFrame implements
 
 	private static final Logger logger = Logger.getLogger(AppJFrame.class
 			.getName());
-
-	static {
-		try {
-			Class.forName(ValidationEngine.class.getName());
-			logger.info("Loaded the ValidationEngine");
-		} catch (Exception ex) {
-			logger.log(Level.SEVERE, "Did not load the ValidationEngine");
-		}
-	}
 
 	/**
 	 * Creates a new frame
