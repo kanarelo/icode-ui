@@ -14,13 +14,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 import com.icode.resources.ResourceUtils;
 import com.icode.view.border.LineBorder;
-import com.icode.view.component.fields.ComboBox;
-import com.icode.view.layout.TableLayout;
+import com.icode.view.component.fields.StringField;
 
 /**
  * An internal dialog shown in a bubble bellow/above its invoker component
@@ -39,6 +37,7 @@ public class PopupDialog extends JPanel {
 	private MessageType messageType;
 	private int myOption = -1;
 	private boolean translucent = true;
+	private StringField txtSearch;
 
 	/**
 	 * Creates an empty dialog component
@@ -102,10 +101,10 @@ public class PopupDialog extends JPanel {
 	 * @param sw
 	 * @param items
 	 */
-	public PopupDialog(String title, String message, Object[][] items) {
+	public PopupDialog(String title, String message) {
 		this();
 		add(createFooter("Search", "Cancel"), BorderLayout.SOUTH);
-		add(createSearchDialogHeader(title, message, items), BorderLayout.NORTH);
+		add(createSearchDialogHeader(title, message), BorderLayout.NORTH);
 	}
 
 	public PopupDialog(String title, JComponent formContainer,
@@ -125,8 +124,7 @@ public class PopupDialog extends JPanel {
 		}
 	}
 
-	private JPanel createSearchDialogHeader(String title, String message,
-			Object[][] items) {
+	private JPanel createSearchDialogHeader(String title, String message) {
 		JPanel header = new JPanel(new BorderLayout(8, 0));
 		header.setBorder(BorderFactory.createEmptyBorder(8, 0, 8, 0));
 
@@ -142,31 +140,15 @@ public class PopupDialog extends JPanel {
 		messageLabel.setForeground(new Color(205, 205, 205));
 		texts.add(messageLabel, BorderLayout.CENTER);
 
-		JPanel widgets = new JPanel(new TableLayout());
+		JPanel widgets = new JPanel();
 
-		JLabel lblSearch = new JLabel("Search:");
-		lblSearch.setForeground(new Color(205, 205, 205));
-		widgets.add(lblSearch);
-		final JTextField txtSearch = new JTextField();
-		txtSearch.setColumns(20);
+		txtSearch = new StringField();
+		txtSearch.requestFocus();
+		txtSearch.setColumns(25);
+		txtSearch.setWatermark("Search");
 		widgets.add(txtSearch);
 
-		JLabel lblColumn = new JLabel("Column:");
-		lblColumn.setForeground(new Color(205, 205, 205));
-		widgets.add(lblColumn);
-
-		final ComboBox cmbColumn = new ComboBox();
-		lblColumn.setLabelFor(cmbColumn);
-		cmbColumn.setRequired(true);
-
-		for (Object[] item : items) {
-			cmbColumn.add(item[0], (String) item[1], (String) item[2]);
-		}
-
-		widgets.add(cmbColumn);
-
 		texts.add(widgets, BorderLayout.SOUTH);
-
 		header.add(texts, BorderLayout.CENTER);
 
 		this.okButton.addActionListener(new ActionListener() {
@@ -174,8 +156,6 @@ public class PopupDialog extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (txtSearch.getText() != null) {
 					if (!txtSearch.getText().isEmpty()) {
-						if (cmbColumn.getSelectedIndex() != -1) {
-						}
 					}
 				}
 			}
@@ -337,5 +317,9 @@ public class PopupDialog extends JPanel {
 			bubble.dismiss();
 			bubble = null;
 		}
+	}
+
+	public String getSearchTerm() {
+		return txtSearch.getText();
 	}
 }

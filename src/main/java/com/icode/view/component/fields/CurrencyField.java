@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  * Field to edit currency values including a decimal number and the currency
  * number
  */
-public class CurrencyField extends AbstractField {
+public class CurrencyField extends NumberField {
 
 	private final NumberFormat format;
 	private final boolean leftSymbol;
