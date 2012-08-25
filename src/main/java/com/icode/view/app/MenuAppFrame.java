@@ -39,6 +39,7 @@ import javax.swing.SwingConstants;
 import com.icode.resources.ResourceUtils;
 import com.icode.view.iToolBarMenuControls;
 import com.icode.view.border.LineBorder;
+import com.icode.view.component.ImageChooser;
 import com.icode.view.component.PressButton;
 import com.icode.view.container.DialogStrip;
 import com.icode.view.container.MenuBar;
@@ -154,7 +155,8 @@ public abstract class MenuAppFrame extends AppJFrame {
 		menuBar.setBorder(null);
 
 		titlePanel.addAppButton("/icons/32/iMRS3.png", null);
-		titlePanel.addGlue(java.awt.Toolkit.getDefaultToolkit().getScreenSize().width - 350);
+		titlePanel
+				.addGlue(java.awt.Toolkit.getDefaultToolkit().getScreenSize().width - 350);
 
 		panel.add(titlePanel, BorderLayout.CENTER);
 
@@ -221,11 +223,14 @@ public abstract class MenuAppFrame extends AppJFrame {
 		toolBar.setBorder(new LineBorder(Color.gray, 0, 0, 1, 0));
 
 		toolBar.addGlue(10);
-		newButton = toolBar.addButton("/icons/16/add.png", "Create a new entry");
+		newButton = toolBar
+				.addButton("/icons/16/add.png", "Create a new entry");
 		newButton.addActionListener(listener);
-		saveButton = toolBar.addButton("/icons/16/save.png", "Save/Edit this entry");
+		saveButton = toolBar.addButton("/icons/16/save.png",
+				"Save/Edit this entry");
 		saveButton.addActionListener(listener);
-		deleteButton = toolBar.addButton("/icons/16/delete.png", "Delete Record");
+		deleteButton = toolBar.addButton("/icons/16/delete.png",
+				"Delete Record");
 		deleteButton.addActionListener(listener);
 		findButton = toolBar.addButton("/icons/16/search.png", "find record");
 		findButton.addActionListener(listener);
@@ -237,7 +242,8 @@ public abstract class MenuAppFrame extends AppJFrame {
 		nextButton.addActionListener(listener);
 		lastButton = toolBar.addButton("/icons/16/last.png", "Go to Last");
 		lastButton.addActionListener(listener);
-		reloadButton = MenuAppFrame.toolBar.addButton("/icons/16/refresh.png", "Reload");
+		reloadButton = MenuAppFrame.toolBar.addButton("/icons/16/refresh.png",
+				"Reload");
 		reloadButton.addActionListener(listener);
 		connectMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
 				java.awt.event.KeyEvent.VK_O,
@@ -418,7 +424,13 @@ public abstract class MenuAppFrame extends AppJFrame {
 				}
 			}
 		});
-		menuBar.addButton("/icons/16/cog_16x16.png", "Settings");
+		menuBar.addButton("/icons/16/cog_16x16.png", "Settings")
+				.addActionListener(new ActionListener() {
+
+					public void actionPerformed(ActionEvent e) {
+						new ImageChooser("WinWin").showModal((JComponent) e.getSource());
+					}
+				});
 		menuBar.addButton("/icons/16/Help.png", "Help");
 
 		setupHeaderLayouts();
@@ -428,7 +440,7 @@ public abstract class MenuAppFrame extends AppJFrame {
 		menuWrapper.add(menuBar, BorderLayout.NORTH);
 		menuWrapper.add(titlePanel, BorderLayout.CENTER);
 		menuWrapper.add(blueRibbon, BorderLayout.SOUTH);
-		
+
 		JPanel nPanel = new JPanel(new BorderLayout());
 		nPanel.add(menuWrapper, BorderLayout.NORTH);
 		this.getContentPane().add(nPanel, BorderLayout.NORTH);
@@ -512,7 +524,8 @@ public abstract class MenuAppFrame extends AppJFrame {
 
 	public void showAbout() {
 		JPanel panel = new JPanel(new BorderLayout(0, 8));
-		panel.add(new JLabel(ResourceUtils.getIcon(getClass(), "icon/icon.png")),
+		panel.add(
+				new JLabel(ResourceUtils.getIcon(getClass(), "icon/icon.png")),
 				BorderLayout.CENTER);
 		panel.add(new JLabel("title", SwingConstants.CENTER),
 				BorderLayout.SOUTH);
