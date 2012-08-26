@@ -7,7 +7,6 @@ package com.icode.view.app;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -25,7 +24,6 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
-import javax.swing.Icon;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -37,13 +35,11 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.SwingConstants;
 
 import com.icode.resources.ResourceUtils;
-import com.icode.view.iToolBarMenuControls;
 import com.icode.view.border.LineBorder;
-import com.icode.view.component.ImageChooser;
-import com.icode.view.component.PressButton;
 import com.icode.view.container.DialogStrip;
 import com.icode.view.container.MenuBar;
 import com.icode.view.container.MessageType;
+import com.icode.view.container.PopupDialog;
 import com.icode.view.container.TitlePanel;
 import com.icode.view.container.ToolFooter;
 
@@ -52,9 +48,6 @@ import com.icode.view.container.ToolFooter;
  * @author Nes
  */
 public abstract class MenuAppFrame extends AppJFrame {
-
-	Listener listener;
-
 	/**
 	 * @return the toolBar
 	 */
@@ -98,7 +91,6 @@ public abstract class MenuAppFrame extends AppJFrame {
 	 */
 	@SuppressWarnings("unchecked")
 	public void init() {
-		listener = new Listener();
 		menubarButtonGroup = new javax.swing.ButtonGroup();
 		setToolBar(new TitlePanel());
 		menuBar = new MenuBar();
@@ -223,28 +215,6 @@ public abstract class MenuAppFrame extends AppJFrame {
 		toolBar.setBorder(new LineBorder(Color.gray, 0, 0, 1, 0));
 
 		toolBar.addGlue(10);
-		newButton = toolBar
-				.addButton("/icons/16/add.png", "Create a new entry");
-		newButton.addActionListener(listener);
-		saveButton = toolBar.addButton("/icons/16/save.png",
-				"Save/Edit this entry");
-		saveButton.addActionListener(listener);
-		deleteButton = toolBar.addButton("/icons/16/delete.png",
-				"Delete Record");
-		deleteButton.addActionListener(listener);
-		findButton = toolBar.addButton("/icons/16/search.png", "find record");
-		findButton.addActionListener(listener);
-		firstButton = toolBar.addButton("/icons/16/first.png", "Go to First");
-		firstButton.addActionListener(listener);
-		prevButton = toolBar.addButton("/icons/16/prev.png", "Go to Previous");
-		prevButton.addActionListener(listener);
-		nextButton = toolBar.addButton("/icons/16/next.png", "Go to Next");
-		nextButton.addActionListener(listener);
-		lastButton = toolBar.addButton("/icons/16/last.png", "Go to Last");
-		lastButton.addActionListener(listener);
-		reloadButton = MenuAppFrame.toolBar.addButton("/icons/16/refresh.png",
-				"Reload");
-		reloadButton.addActionListener(listener);
 		connectMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
 				java.awt.event.KeyEvent.VK_O,
 				java.awt.event.InputEvent.CTRL_MASK));
@@ -358,82 +328,20 @@ public abstract class MenuAppFrame extends AppJFrame {
 
 		menuBar.addMenu("Help", helpMenu);
 		menuBar.addGlue(8);
-		final MenuBar.ToolButton p = (MenuBar.ToolButton) menuBar.addButton(
-				"/icons/16/arrow_down_alt1_16x16.png", "Minimize");
-		p.setIcon(new Icon() {
-			public void paintIcon(Component c, Graphics g, int x, int y) {
-				Graphics2D g2 = (Graphics2D) g;
-				g2.rotate(Math.toRadians(-45), x, y);
-				g.fillRect((x - 2), (y + 3), 2, 6);
-				g.fillRect((x - 2), (y + 7), 6, 2);
-			}
-
-			public int getIconWidth() {
-				return 8;
-			}
-
-			public int getIconHeight() {
-				return 8;
-			}
-		});
-
-		p.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				if (MenuAppFrame.this.titlePanel.isVisible()) {
-					p.setIcon(new Icon() {
-						public void paintIcon(Component c, Graphics g, int x,
-								int y) {
-							Graphics2D g2 = (Graphics2D) g;
-							g2.rotate(Math.toRadians(-45), x, y);
-							g.fillRect((x - 2), (y + 3), 2, 6);
-							g.fillRect((x - 2), (y + 7), 6, 2);
-						}
-
-						public int getIconWidth() {
-							return 8;
-						}
-
-						public int getIconHeight() {
-							return 8;
-						}
-					});
-					MenuAppFrame.this.titlePanel.setVisible(false);
-					p.setToolTipText("Expand");
-				} else {
-					p.setIcon(new Icon() {
-						public void paintIcon(Component c, Graphics g, int x,
-								int y) {
-
-							Graphics2D g2 = (Graphics2D) g;
-							g2.rotate(Math.toRadians(135), x, y);
-							g.fillRect(x - 2, y - 10, 2, 6);
-							g.fillRect(x - 2, y - 6, 6, 2);
-						}
-
-						public int getIconWidth() {
-							return 8;
-						}
-
-						public int getIconHeight() {
-							return 8;
-						}
-					});
-					MenuAppFrame.this.titlePanel.setVisible(true);
-					p.setToolTipText("Minimize");
-				}
-			}
-		});
 		menuBar.addButton("/icons/16/cog_16x16.png", "Settings")
 				.addActionListener(new ActionListener() {
-
 					public void actionPerformed(ActionEvent e) {
-						new ImageChooser("WinWin").showModal((JComponent) e.getSource());
+						new PopupDialog("Settings", getSettingsPanel(), true, false)
+								.showModal((JComponent) e.getSource());
 					}
 				});
 		menuBar.addButton("/icons/16/Help.png", "Help");
 
 		setupHeaderLayouts();
+	}
+
+	protected JPanel getSettingsPanel() {
+		return new JPanel(new BorderLayout());
 	}
 
 	protected void setupHeaderLayouts() {
@@ -456,15 +364,6 @@ public abstract class MenuAppFrame extends AppJFrame {
 	private JPanel blueRibbon;
 	private JPanel grayRibbon;
 	private JMenu printMenu;
-	private PressButton newButton;
-	private PressButton saveButton;
-	private PressButton deleteButton;
-	private PressButton findButton;
-	private PressButton nextButton;
-	private PressButton prevButton;
-	private PressButton firstButton;
-	private PressButton lastButton;
-	private PressButton reloadButton;
 	private JPopupMenu OptionsMenu;
 	private JMenuItem aboutMenuItem;
 	private JMenuItem connectMenuItem;
@@ -597,41 +496,71 @@ public abstract class MenuAppFrame extends AppJFrame {
 		}
 	}
 
-	// Owari
-
-	public void addToolBarListener(iToolBarMenuControls itbm) {
-		listener.controlListener = itbm;
-	}
-
-	private class Listener implements ActionListener {
-		private iToolBarMenuControls controlListener;
-
-		private Listener() {
-		}
-
-		public void actionPerformed(ActionEvent e) {
-
-			if (this.controlListener != null) {
-				if (e.getSource().equals(MenuAppFrame.this.nextButton)) {
-					controlListener.nextEntry(e);
-				} else if (e.getSource().equals(MenuAppFrame.this.firstButton)) {
-					controlListener.firstEntry(e);
-				} else if (e.getSource().equals(MenuAppFrame.this.prevButton)) {
-					controlListener.previousEntry(e);
-				} else if (e.getSource().equals(MenuAppFrame.this.lastButton)) {
-					controlListener.lastEntry(e);
-				} else if (e.getSource().equals(MenuAppFrame.this.saveButton)) {
-					controlListener.saveEntry(e);
-				} else if (e.getSource().equals(MenuAppFrame.this.deleteButton)) {
-					controlListener.deleteEntry(e);
-				} else if (e.getSource().equals(MenuAppFrame.this.newButton)) {
-					controlListener.newEntry(e);
-				} else if (e.getSource().equals(MenuAppFrame.this.reloadButton)) {
-					controlListener.reloadEntry(e);
-				} else if (e.getSource().equals(MenuAppFrame.this.findButton)) {
-					controlListener.findEntry(e);
-				}
-			}
-		}
-	}
 }
+
+// final MenuBar.ToolButton p = (MenuBar.ToolButton) menuBar.addButton(
+// "/icons/16/arrow_down_alt1_16x16.png", "Minimize");
+// p.setIcon(new Icon() {
+// public void paintIcon(Component c, Graphics g, int x, int y) {
+// Graphics2D g2 = (Graphics2D) g;
+// g2.rotate(Math.toRadians(-45), x, y);
+// g.fillRect((x - 2), (y + 3), 2, 6);
+// g.fillRect((x - 2), (y + 7), 6, 2);
+// }
+//
+// public int getIconWidth() {
+// return 8;
+// }
+//
+// public int getIconHeight() {
+// return 8;
+// }
+// });
+
+// p.addActionListener(new ActionListener() {
+//
+// public void actionPerformed(ActionEvent e) {
+// if (MenuAppFrame.this.titlePanel.isVisible()) {
+// p.setIcon(new Icon() {
+// public void paintIcon(Component c, Graphics g, int x,
+// int y) {
+// Graphics2D g2 = (Graphics2D) g;
+// g2.rotate(Math.toRadians(-45), x, y);
+// g.fillRect((x - 2), (y + 3), 2, 6);
+// g.fillRect((x - 2), (y + 7), 6, 2);
+// }
+//
+// public int getIconWidth() {
+// return 8;
+// }
+//
+// public int getIconHeight() {
+// return 8;
+// }
+// });
+// MenuAppFrame.this.titlePanel.setVisible(false);
+// p.setToolTipText("Expand");
+// } else {
+// p.setIcon(new Icon() {
+// public void paintIcon(Component c, Graphics g, int x,
+// int y) {
+//
+// Graphics2D g2 = (Graphics2D) g;
+// g2.rotate(Math.toRadians(135), x, y);
+// g.fillRect(x - 2, y - 10, 2, 6);
+// g.fillRect(x - 2, y - 6, 6, 2);
+// }
+//
+// public int getIconWidth() {
+// return 8;
+// }
+//
+// public int getIconHeight() {
+// return 8;
+// }
+// });
+// MenuAppFrame.this.titlePanel.setVisible(true);
+// p.setToolTipText("Minimize");
+// }
+// }
+// });
