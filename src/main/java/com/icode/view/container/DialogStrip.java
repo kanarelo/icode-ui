@@ -66,7 +66,6 @@ public class DialogStrip extends JToolBar {
         iconMap = new Hashtable<MessageType, Icon>(6);
         iconMap.put(MessageType.ERROR, ResourceUtils.getIcon("/icons/16/error.png"));
         iconMap.put(MessageType.INFORMATION, ResourceUtils.getIcon("/icons/16/info.png"));
-        iconMap.put(MessageType.PLAIN_MESSAGE, ResourceUtils.getIcon("/icons/16/user.png"));
         iconMap.put(MessageType.WARNING, ResourceUtils.getIcon("/icons/16/warning.png"));
         iconMap.put(MessageType.QUESTION, ResourceUtils.getIcon("/icons/16/question.png"));
         iconMap.put(MessageType.SUCCESS, ResourceUtils.getIcon("/icons/16/success.png"));
