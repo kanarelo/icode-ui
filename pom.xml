@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.icode.ui</groupId>
+	<groupId>org.synacor.icode.ui</groupId>
 	<artifactId>icode-ui</artifactId>
 	<version>0.2.5-SNAPSHOT</version>
 	<name>Icode UI</name>
@@ -118,9 +118,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.icode.core</groupId>
+			<groupId>org.synacor.icode.core</groupId>
 			<artifactId>icode-core</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
+			<version>0.9.5-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jdesktop</groupId>
