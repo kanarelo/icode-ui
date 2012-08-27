@@ -133,22 +133,21 @@ public class PopupDialog extends JPanel {
 		JPanel texts = new JPanel(new BorderLayout(0, 8));
 		JLabel titleLabel = new JLabel(title);
 		titleLabel.setForeground(Color.WHITE);
-		titleLabel.setFont(UIManager.getFont("Label.boldfont"));
+		titleLabel.setFont(UIManager.getFont("Label.headerfont")
+				.deriveFont(20f));
 		texts.add(titleLabel, BorderLayout.NORTH);
 		JLabel messageLabel = new JLabel("<html><div style=\"width: " + 220
 				+ "px;\">" + message + "</div></html>");
 		messageLabel.setForeground(new Color(205, 205, 205));
+		messageLabel.setFont(messageLabel.getFont().deriveFont(14f));
 		texts.add(messageLabel, BorderLayout.CENTER);
-
-		JPanel widgets = new JPanel();
 
 		txtSearch = new StringField();
 		txtSearch.requestFocus();
 		txtSearch.setColumns(25);
 		txtSearch.setWatermark("Search");
-		widgets.add(txtSearch);
 
-		texts.add(widgets, BorderLayout.SOUTH);
+		texts.add(txtSearch, BorderLayout.SOUTH);
 		header.add(texts, BorderLayout.CENTER);
 
 		this.okButton.addActionListener(new ActionListener() {

@@ -10,11 +10,13 @@ import java.awt.event.WindowListener;
 import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 import com.icode.view.iApplicationMenuControls;
+import com.icode.view.container.MessageType;
+import com.icode.view.container.PopupDialog;
 
 /**
  * Advanced frame supporting Mac application features
@@ -79,11 +81,9 @@ public abstract class AppJFrame extends JFrame implements
 
 		public void windowClosing(WindowEvent e) {
 			String[] ObjButtons = new String[] { "Yes", "No" };
-			int PromptResult = JOptionPane.showOptionDialog(null,
-					"Are you sure you want to close?", "System Message",
-					JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-					null, ObjButtons, ObjButtons[1]);
-			if (PromptResult == 0) {
+			if (new PopupDialog(MessageType.WARNING, "System Message",
+					"Are you sure you want to close?", "Ok", "Cancel", true)
+					.showModal(AppJFrame.this.getRootPane())) {
 				System.exit(0);
 			}
 		}

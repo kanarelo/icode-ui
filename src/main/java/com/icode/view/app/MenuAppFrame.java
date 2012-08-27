@@ -244,98 +244,98 @@ public abstract class MenuAppFrame extends AppJFrame {
 		waitingRequestsMenuItem.setText("Waiting Request");
 		userMenu.add(waitingRequestsMenuItem);
 
-		menuBar.addMenu("User", userMenu);
+		// menuBar.addMenu("User", userMenu);
+		//
+		// nextTabMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
+		// java.awt.event.KeyEvent.VK_PAGE_DOWN,
+		// java.awt.event.InputEvent.CTRL_MASK));
+		// nextTabMenuItem.setText("Next Tab");
+		//
+		// goToResourceIDMenuItem.setAccelerator(javax.swing.KeyStroke
+		// .getKeyStroke(java.awt.event.KeyEvent.VK_G,
+		// java.awt.event.InputEvent.CTRL_MASK));
+		// goToResourceIDMenuItem.setText("Go to Resource ID");
+		//
+		// previewInPDFMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
+		// java.awt.event.KeyEvent.VK_P,
+		// java.awt.event.InputEvent.CTRL_MASK));
+		// previewInPDFMenuItem.setText("Preview in PDF");
+		//
+		// extensioManagerMenuItem.setText("Extension Manager");
+		// OptionsMenu.add(extensioManagerMenuItem);
+		//
+		// menubarButtonGroup.add(testAndIconsMenuItem);
+		// testAndIconsMenuItem.setSelected(true);
+		// testAndIconsMenuItem.setText("Text and Icons");
+		// menubarMenu.add(testAndIconsMenuItem);
+		//
+		// menubarButtonGroup.add(iconsOnlyMenuItem);
+		// iconsOnlyMenuItem.setText("Icons only");
+		// menubarMenu.add(iconsOnlyMenuItem);
+		//
+		// menubarButtonGroup.add(textOnlyMenuItem);
+		// textOnlyMenuItem.setText("Text only");
+		// menubarMenu.add(textOnlyMenuItem);
+		//
+		// OptionsMenu.add(menubarMenu);
+		//
+		// rightToolbarMenuItem.setSelected(true);
+		// rightToolbarMenuItem.setText("Right Toolbar");
+		// formsMenu.add(rightToolbarMenuItem);
+		//
+		// OptionsMenu.add(formsMenu);
+		//
+		// printMenu.setText("Print");
+		// previewBeforePrintMenuItem.setSelected(true);
+		// previewBeforePrintMenuItem.setText("Preview before print");
+		// printMenu.add(previewBeforePrintMenuItem);
+		//
+		// OptionsMenu.add(printMenu);
+		//
+		// saveOptionsMenuItem.setText("Save Options");
+		// OptionsMenu.add(saveOptionsMenuItem);
 
-		nextTabMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_PAGE_DOWN,
-				java.awt.event.InputEvent.CTRL_MASK));
-		nextTabMenuItem.setText("Next Tab");
+		// menuBar.addMenu("Options", OptionsMenu);
 
-		goToResourceIDMenuItem.setAccelerator(javax.swing.KeyStroke
-				.getKeyStroke(java.awt.event.KeyEvent.VK_G,
-						java.awt.event.InputEvent.CTRL_MASK));
-		goToResourceIDMenuItem.setText("Go to Resource ID");
+		// executePluginMenuItem.setText("Execute a plugin");
+		// PluginsMenu.add(executePluginMenuItem);
 
-		previewInPDFMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_P,
-				java.awt.event.InputEvent.CTRL_MASK));
-		previewInPDFMenuItem.setText("Preview in PDF");
+		// menuBar.addMenu("Plugins", PluginsMenu);
 
-		extensioManagerMenuItem.setText("Extension Manager");
-		OptionsMenu.add(extensioManagerMenuItem);
+		// editShortcutMenuItem.setText("Edit");
+		// shortcutMenu.add(editShortcutMenuItem);
 
-		menubarButtonGroup.add(testAndIconsMenuItem);
-		testAndIconsMenuItem.setSelected(true);
-		testAndIconsMenuItem.setText("Text and Icons");
-		menubarMenu.add(testAndIconsMenuItem);
+		// menuBar.addMenu("Shortcut", shortcutMenu);
 
-		menubarButtonGroup.add(iconsOnlyMenuItem);
-		iconsOnlyMenuItem.setText("Icons only");
-		menubarMenu.add(iconsOnlyMenuItem);
+		// userManualMenuItem.setText("User Manual");
+		// helpMenu.add(userManualMenuItem);
+		//
+		// contextualHelpMenuItem.setAccelerator(javax.swing.KeyStroke
+		// .getKeyStroke(java.awt.event.KeyEvent.VK_H,
+		// java.awt.event.InputEvent.CTRL_MASK));
+		// contextualHelpMenuItem.setText("Contextual Help");
+		// helpMenu.add(contextualHelpMenuItem);
+		//
+		// tipsMenuItem.setText("Tips");
+		// helpMenu.add(tipsMenuItem);
+		//
+		// keyboardShortcutsMenuItem.setText("Keyboard Shortcuts");
+		// helpMenu.add(keyboardShortcutsMenuItem);
+		// helpMenu.add(jSeparator9);
+		//
+		// aboutMenuItem.setText("About");
+		// helpMenu.add(aboutMenuItem);
 
-		menubarButtonGroup.add(textOnlyMenuItem);
-		textOnlyMenuItem.setText("Text only");
-		menubarMenu.add(textOnlyMenuItem);
-
-		OptionsMenu.add(menubarMenu);
-
-		rightToolbarMenuItem.setSelected(true);
-		rightToolbarMenuItem.setText("Right Toolbar");
-		formsMenu.add(rightToolbarMenuItem);
-
-		OptionsMenu.add(formsMenu);
-
-		printMenu.setText("Print");
-		previewBeforePrintMenuItem.setSelected(true);
-		previewBeforePrintMenuItem.setText("Preview before print");
-		printMenu.add(previewBeforePrintMenuItem);
-
-		OptionsMenu.add(printMenu);
-
-		saveOptionsMenuItem.setText("Save Options");
-		OptionsMenu.add(saveOptionsMenuItem);
-
-		menuBar.addMenu("Options", OptionsMenu);
-
-		executePluginMenuItem.setText("Execute a plugin");
-		PluginsMenu.add(executePluginMenuItem);
-
-		menuBar.addMenu("Plugins", PluginsMenu);
-
-		editShortcutMenuItem.setText("Edit");
-		shortcutMenu.add(editShortcutMenuItem);
-
-		menuBar.addMenu("Shortcut", shortcutMenu);
-
-		userManualMenuItem.setText("User Manual");
-		helpMenu.add(userManualMenuItem);
-
-		contextualHelpMenuItem.setAccelerator(javax.swing.KeyStroke
-				.getKeyStroke(java.awt.event.KeyEvent.VK_H,
-						java.awt.event.InputEvent.CTRL_MASK));
-		contextualHelpMenuItem.setText("Contextual Help");
-		helpMenu.add(contextualHelpMenuItem);
-
-		tipsMenuItem.setText("Tips");
-		helpMenu.add(tipsMenuItem);
-
-		keyboardShortcutsMenuItem.setText("Keyboard Shortcuts");
-		helpMenu.add(keyboardShortcutsMenuItem);
-		helpMenu.add(jSeparator9);
-
-		aboutMenuItem.setText("About");
-		helpMenu.add(aboutMenuItem);
-
-		menuBar.addMenu("Help", helpMenu);
+		// menuBar.addMenu("Help", helpMenu);
 		menuBar.addGlue(8);
 		menuBar.addButton("/icons/16/cog_16x16.png", "Settings")
 				.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						new PopupDialog("Settings", getSettingsPanel(), true, false)
-								.showModal((JComponent) e.getSource());
+						new PopupDialog("Settings", getSettingsPanel(), true,
+								false).showModal((JComponent) e.getSource());
 					}
 				});
-		menuBar.addButton("/icons/16/Help.png", "Help");
+		// menuBar.addButton("/icons/16/Help.png", "Help");
 
 		setupHeaderLayouts();
 	}
