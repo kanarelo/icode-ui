@@ -69,6 +69,7 @@ public abstract class NumberField extends AbstractField {
     @Override
     protected boolean isValid(String text) {
         ParsePosition position = new ParsePosition(0);
+        this.getClass();
         Number value = format.parse(text, position);
         if (value == null) {
             return false;

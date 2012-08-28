@@ -6,7 +6,9 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -20,14 +22,16 @@ import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.apache.commons.lang.RandomStringUtils;
+
 import com.icode.resources.ResourceUtils;
 import com.icode.view.binding.ValueEditor;
 
 /**
  * Advanced combobox component with validation and multiline items
  */
+@SuppressWarnings({ "serial", "rawtypes" })
 public class ComboBox extends JComboBox implements ValueEditor<Object> {
-
 	private boolean required;
 
 	/**
@@ -39,6 +43,7 @@ public class ComboBox extends JComboBox implements ValueEditor<Object> {
 		Renderer _renderer = new Renderer();
 		setRenderer(_renderer);
 		addItemListener(_renderer);
+		setName(RandomStringUtils.randomAlphanumeric(10));
 	}
 
 	public ComboBox(Object[] items) {
@@ -64,6 +69,11 @@ public class ComboBox extends JComboBox implements ValueEditor<Object> {
 		return this;
 	}
 
+	public void setHoverStyle() {
+		hoverStyle = true;
+		setOpaque(false);
+	}
+
 	/**
 	 * Adds a new row to its list
 	 * 
@@ -83,7 +93,7 @@ public class ComboBox extends JComboBox implements ValueEditor<Object> {
 	 * 
 	 * @param required
 	 *            true for non empty selection requirement
-	 * @return 
+	 * @return
 	 */
 	public ComboBox setRequired(boolean required) {
 		this.required = required;
@@ -180,7 +190,7 @@ public class ComboBox extends JComboBox implements ValueEditor<Object> {
 		public void setValue(Object value) {
 			this.value = value;
 		}
-		
+
 		@Override
 		public String toString() {
 			return value.toString();
@@ -201,6 +211,7 @@ public class ComboBox extends JComboBox implements ValueEditor<Object> {
 
 	private final Font plain = UIManager.getFont("Label.font"),
 			small = UIManager.getFont("Label.smallfont");
+	private boolean hoverStyle;
 
 	private class Renderer extends DefaultListCellRenderer implements
 			ItemListener {
@@ -269,13 +280,59 @@ public class ComboBox extends JComboBox implements ValueEditor<Object> {
 		}
 
 		public void itemStateChanged(ItemEvent e) {
-			if (e.getStateChange() == ItemEvent.SELECTED) {
-				for (ChangeListener listener : listenerList
-						.getListeners(ChangeListener.class)) {
-					listener.stateChanged(new ChangeEvent(this));
-				}
+			for (ChangeListener listener : ComboBox.this.listenerList
+					.getListeners(ChangeListener.class)) {
+				listener.stateChanged(new ChangeEvent(this));
 			}
 		}
+	}
+
+	/**
+	 * Overwritten to return different size for hover styled component
+	 */
+	public Dimension getPreferredSize() {
+		if (hoverStyle) {
+			FontMetrics fm = getFontMetrics(getFont());
+			int w = 0, h = fm.getAscent() + fm.getDescent() + 4;
+			for (int i = 0, n = getItemCount(); i < n; i++) {
+				w = Math.max(fm.stringWidth(((Item) getItemAt(i)).title), w);
+			}
+			return new Dimension(w + 10 + (h / 2) * 2, h);
+		} else {
+			return super.getPreferredSize();
+		}
+	}
+
+	/**
+	 * Overwritten to paint hover styled component and validity status icon
+	 */
+	public void paint(Graphics g) {
+		if (hoverStyle) {
+			Graphics2D g2 = ResourceUtils.init(g);
+			int w = getWidth(), h = getHeight();
+
+			g2.setPaint(new GradientPaint(0, 0, new Color(0xa5a5a5), 0, h - 1,
+					new Color(0x989898)));
+			g.fillRoundRect(0, 0, w, h, h, h);
+			g2.setPaint(new GradientPaint(0, 1, Color.white, 0, h - 3,
+					new Color(0xdfdfdf)));
+			g.fillRoundRect(1, 1, w - 2, h - 2, h - 2, h - 2);
+
+			Item item = (Item) getSelectedItem();
+			g.setColor(Color.black);
+			if (item != null) {
+				FontMetrics fm = g.getFontMetrics();
+				g.drawString(item.title, h / 2, 2 + fm.getAscent());
+			}
+			g.setColor(Color.darkGray);
+			int x = w - h / 2 - 8, y = (h - 8 + 1) / 2;
+			g.fillPolygon(new int[] { x, x + 8, x + 4 }, new int[] { y, y,
+					y + 8 }, 3);
+		} else {
+			super.paint(g);
+		}
+		if (!getValidity())
+			AbstractField.paintStatus(g, this, true);
 	}
 
 	private static final Logger LOG = Logger

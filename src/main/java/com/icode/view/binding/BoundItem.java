@@ -5,6 +5,8 @@ import java.lang.reflect.Method;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.icode.view.component.fields.ComboBox;
+
 class BoundItem<E> implements ChangeListener {
 
 	private Method getter, setter;

@@ -115,8 +115,7 @@ public class Binding<E> {
 	/**
 	 * Adds a listener to listen to value or validation change
 	 * 
-	 * @param listener
-	 *            a listener to listen for changes
+	 * @param listener a listener to listen for changes
 	 */
 	public void addChangeListener(ChangeListener listener) {
 		listenerList.add(ChangeListener.class, listener);
