@@ -42,7 +42,7 @@ public class PopupDialog extends JPanel {
 	/**
 	 * Creates an empty dialog component
 	 */
-	private PopupDialog() {
+	public PopupDialog() {
 		setLayout(new BorderLayout());
 	}
 
@@ -70,7 +70,7 @@ public class PopupDialog extends JPanel {
 			String ok, String cancel, boolean translucent) {
 		this();
 		this.messageType = messageType;
-		this.translucent = translucent;
+		this.setTranslucent(translucent);
 		add(createHeader(messageType, title, message), BorderLayout.NORTH);
 		add(createFooter(ok, cancel), BorderLayout.SOUTH);
 	}
@@ -79,7 +79,7 @@ public class PopupDialog extends JPanel {
 			String ok, boolean translucent) {
 		this();
 		this.messageType = messageType;
-		this.translucent = translucent;
+		this.setTranslucent(translucent);
 		add(createHeader(messageType, title, message), BorderLayout.NORTH);
 		add(createFooter(ok, null), BorderLayout.SOUTH);
 	}
@@ -115,7 +115,7 @@ public class PopupDialog extends JPanel {
 	public PopupDialog(String title, JComponent formContainer,
 			boolean lowerButtons, boolean translucent) {
 		this();
-		this.translucent = translucent;
+		this.setTranslucent(translucent);
 		add(createHeader(null, title, null), BorderLayout.NORTH);
 		add(formContainer, BorderLayout.CENTER);
 
@@ -231,7 +231,7 @@ public class PopupDialog extends JPanel {
 		if (bubble != null) {
 			throw new IllegalStateException();
 		}
-		bubble = new Bubble(invoker, this, okButton, cancelButton, translucent);
+		bubble = new Bubble(invoker, this, okButton, cancelButton, isTranslucent());
 		return bubble.waitForClose();
 	}
 
@@ -245,7 +245,7 @@ public class PopupDialog extends JPanel {
 		if (bubble != null) {
 			throw new IllegalStateException();
 		}
-		bubble = new Bubble(invoker, this, okButton, cancelButton, translucent);
+		bubble = new Bubble(invoker, this, okButton, cancelButton, isTranslucent());
 	}
 
 	private JPanel createHeader(MessageType messageType, String title,
@@ -268,7 +268,7 @@ public class PopupDialog extends JPanel {
 		}
 		JPanel texts = new JPanel(new BorderLayout(0, 8));
 		JLabel titleLabel = new JLabel(title);
-		if (translucent) {
+		if (isTranslucent()) {
 			titleLabel.setForeground(Color.WHITE);
 		}
 		titleLabel.setFont(UIManager.getFont("Label.headerfont"));
@@ -277,7 +277,7 @@ public class PopupDialog extends JPanel {
 		if (message != null) {
 			JLabel messageLabel = new JLabel("<html><div style=\"width: " + 240
 					+ "px;\">" + message + "</div></html>");
-			if (translucent) {
+			if (isTranslucent()) {
 				messageLabel.setForeground(new Color(205, 205, 205));
 			}
 			texts.add(messageLabel, BorderLayout.CENTER);
@@ -286,7 +286,7 @@ public class PopupDialog extends JPanel {
 		return header;
 	}
 
-	private JPanel createFooter(String ok, String cancel) {
+	protected JPanel createFooter(String ok, String cancel) {
 		JPanel footer = new JPanel(new BorderLayout());
 		footer.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, 0, 0, 0, 8, 0, 0,
 				0));
@@ -320,5 +320,13 @@ public class PopupDialog extends JPanel {
 
 	public String getSearchTerm() {
 		return txtSearch.getText();
+	}
+
+	public boolean isTranslucent() {
+		return translucent;
+	}
+
+	public void setTranslucent(boolean translucent) {
+		this.translucent = translucent;
 	}
 }
