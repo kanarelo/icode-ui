@@ -21,8 +21,8 @@ import com.icode.view.table.Table;
 import com.icode.view.table.Table.Listener;
 
 @SuppressWarnings("serial")
-public abstract class SearchFilter<E extends BaseModel> extends PopupDialog implements
-		Listener<E> {
+public abstract class SearchFilter<E extends BaseModel> extends PopupDialog
+		implements Listener<E> {
 	protected Table<E> modelList;
 	private List<E> models;
 	private JScrollPane modelListScrollPane;
@@ -60,12 +60,12 @@ public abstract class SearchFilter<E extends BaseModel> extends PopupDialog impl
 
 		modelList.addItems(getModels());
 		modelList.addListListener(this);
-		
+
 		JPanel panel = new JPanel(new BorderLayout());
-		
+
 		modelListScrollPane = new JScrollPane(modelList);
 		modelListScrollPane.setBorder(BorderFactory.createEmptyBorder());
-		
+
 		panel.add(new JLabel("."), BorderLayout.NORTH);
 		panel.add(modelListScrollPane, BorderLayout.CENTER);
 		add(panel, BorderLayout.CENTER);
@@ -74,10 +74,14 @@ public abstract class SearchFilter<E extends BaseModel> extends PopupDialog impl
 	}
 
 	protected abstract void prepareCells();
+
 	protected abstract Class<E> getModelClass();
-	public void selectionChanged(ListSelectionEvent e) {}
+
+	public void selectionChanged(ListSelectionEvent e) {
+	}
+
 	public void doubleClicked(E item) {
-		
+
 	}
 
 	public List<E> getModels() {
