@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.synacor.icode.ui</groupId>
 	<artifactId>icode-ui</artifactId>
-	<version>0.2.5-SNAPSHOT</version>
+	<version>0.3.5-SNAPSHOT</version>
 	<name>Icode UI</name>
 	<description>The Icode Library UI	</description>
 
