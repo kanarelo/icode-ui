@@ -26,13 +26,14 @@ public abstract class SearchFilter<E extends BaseModel> extends PopupDialog
 	protected Table<E> modelList;
 	private List<E> models;
 	private JScrollPane modelListScrollPane;
+	private SearchFilterReceiver<E> searchFilterReceiver;
 
 	public SearchFilter(List<E> models) {
 		this.models = models;
 		this.setTranslucent(false);
 		StringField searchField = new StringField();
 		searchField.setWatermark("Search Item");
-		searchField.setFont(UIManager.getFont("Label.font").deriveFont(15f));
+		searchField.setFont(UIManager.getFont("Label.font").deriveFont(13f));
 		add(searchField, BorderLayout.NORTH);
 
 		modelList = new Table<E>() {
@@ -81,7 +82,7 @@ public abstract class SearchFilter<E extends BaseModel> extends PopupDialog
 	}
 
 	public void doubleClicked(E item) {
-
+		searchFilterReceiver.filter(item);
 	}
 
 	public List<E> getModels() {
@@ -90,5 +91,13 @@ public abstract class SearchFilter<E extends BaseModel> extends PopupDialog
 
 	public void setModels(List<E> models) {
 		this.models = models;
+	}
+
+	public SearchFilterReceiver<E> getSearchFilterReceiver() {
+		return searchFilterReceiver;
+	}
+
+	public void setSearchFilterReceiver(SearchFilterReceiver<E> searchFilterReceiver) {
+		this.searchFilterReceiver = searchFilterReceiver;
 	}
 }
