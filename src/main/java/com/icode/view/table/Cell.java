@@ -17,9 +17,12 @@ import java.text.MessageFormat;
 import java.text.NumberFormat;
 import java.util.logging.Logger;
 
+import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.ListModel;
 import javax.swing.UIManager;
+
+import com.icode.resources.ResourceUtils;
 
 /**
  * Cell is a binding object to connect a row's value's field and its graphic
@@ -37,6 +40,7 @@ public class Cell {
 	private boolean rightAligned;
 	private boolean staticText;
 	private static final Format progress = new DecimalFormat();
+	private static final Format _boolean = new DecimalFormat();
 	private Class<?> clazz;
 
 	/**
@@ -159,6 +163,15 @@ public class Cell {
 	}
 
 	/**
+	 * Sets that the integer value is rendered as progress bar
+	 * 
+	 * @return the cell itself
+	 */
+	public Cell setBooleanFormat() {
+		return setFormat(_boolean);
+	}
+
+	/**
 	 * The cell name is used as static text not as getter/setter name
 	 * 
 	 * @return the cell itself
@@ -171,8 +184,8 @@ public class Cell {
 
 	private String format(Object value) {
 		return (value == null) ? ""
-				: (format != null) ? format
-						.format((format instanceof MessageFormat) ? new Object[] { value }
+				: (format != null) ? format == _boolean ? ""
+						: format.format((format instanceof MessageFormat) ? new Object[] { value }
 								: value)
 						: value.toString();
 	}
@@ -217,6 +230,10 @@ public class Cell {
 			return new Dimension(60, 7);
 		}
 
+		if (format == progress) {
+			return new Dimension(16, 8);
+		}
+
 		FontMetrics fm = list.getFontMetrics(font);
 		if (staticText) {
 			return new Dimension(fm.stringWidth(name), fm.getAscent()
@@ -254,7 +271,8 @@ public class Cell {
 		g.fillRoundRect(x - 4, y, width + 8, height, 4, 4);
 	}
 
-	void render(Graphics2D g, Object item, boolean selected) {
+	void render(JComponent tableRenderer, Graphics2D g, Object item,
+			boolean selected) {
 		g.setFont(font);
 
 		if (!selected) {
@@ -284,6 +302,15 @@ public class Cell {
 				g.fillRect(x + 1, py + 1, length - 2, h - 2);
 			}
 			g.setColor(_color);
+		} else if (format == _boolean) {
+			try {
+				ResourceUtils.getIcon(
+					(Boolean) getValue(item)? 
+					"/icons/icon-yes.gif":
+					"/icons/icon-no.gif"
+				).paintIcon(tableRenderer, g, x + 2, y + 4);
+			} catch (NullPointerException e) {
+			}
 		} else {
 			String text = staticText ? name : format(getValue(item));
 			FontMetrics fm = g.getFontMetrics();

@@ -26,7 +26,6 @@ import com.icode.resources.ResourceUtils;
 import com.icode.view.app.TipManager;
 import com.icode.view.border.LineBorder;
 import com.icode.view.component.PressButton;
-import com.icode.view.container.MenuBar.ToolButton;
 
 /**
  * Wrapper component for tool-bar

@@ -126,7 +126,7 @@ public class TableRenderer extends JComponent implements ListCellRenderer, ListD
 
         g.setColor(selected ? sfg : fg);
         for (Cell item : cells) {
-            item.render(g2, value, selected);
+            item.render(this, g2, value, selected);
         }
     }
 

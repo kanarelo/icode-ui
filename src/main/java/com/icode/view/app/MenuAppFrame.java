@@ -13,8 +13,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.LayoutManager;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -39,7 +37,6 @@ import com.icode.view.border.LineBorder;
 import com.icode.view.container.DialogStrip;
 import com.icode.view.container.MenuBar;
 import com.icode.view.container.MessageType;
-import com.icode.view.container.PopupDialog;
 import com.icode.view.container.TitlePanel;
 import com.icode.view.container.ToolFooter;
 
@@ -327,14 +324,14 @@ public abstract class MenuAppFrame extends AppJFrame {
 		// helpMenu.add(aboutMenuItem);
 
 		// menuBar.addMenu("Help", helpMenu);
-		menuBar.addGlue(8);
-		menuBar.addButton("/icons/16/cog_16x16.png", "Settings")
-				.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						new PopupDialog("Settings", getSettingsPanel(), true,
-								false).showModal((JComponent) e.getSource());
-					}
-				});
+		// menuBar.addGlue(8);
+		// menuBar.addButton("/icons/16/cog_16x16.png", "Settings")
+		// .addActionListener(new ActionListener() {
+		// public void actionPerformed(ActionEvent e) {
+		// new PopupDialog("Settings", getSettingsPanel(), true,
+		// false).showModal((JComponent) e.getSource());
+		// }
+		// });
 		// menuBar.addButton("/icons/16/Help.png", "Help");
 
 		setupHeaderLayouts();
