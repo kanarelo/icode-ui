@@ -120,7 +120,7 @@
 		<dependency>
 			<groupId>org.synacor.icode.core</groupId>
 			<artifactId>icode-core</artifactId>
-			<version>0.9.5-SNAPSHOT</version>
+			<version>0.9.6-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jdesktop</groupId>
